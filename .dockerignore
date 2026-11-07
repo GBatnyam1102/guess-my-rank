@@ -1,0 +1,12 @@
+**/node_modules
+**/.next
+**/.env
+**/.env.*
+**/*.tsbuildinfo
+**/*.log
+server/data
+deploy/.env
+coverage
+.git
+.github
+.vscode

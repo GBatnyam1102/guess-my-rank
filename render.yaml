@@ -1,0 +1,35 @@
+# Render Blueprint for the game server on the free plan (docs/deploy.md).
+# The web app runs on Vercel and PostgreSQL on Neon. Values marked sync: false are asked for in the dashboard.
+services:
+  - type: web
+    name: gmr-server
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    buildFilter:
+      paths:
+        - server/**
+        - shared/**
+        - Dockerfile
+        - pnpm-lock.yaml
+    envVars:
+      # Neon connection string (Direct connection, not the pooled one).
+      - key: DATABASE_URL
+        sync: false
+      # The web app's origins, e.g. https://example.mn,https://www.example.mn,https://guess-my-rank.vercel.app
+      - key: CORS_ORIGINS
+        sync: false
+      # This service's own public health URL, e.g. https://api.example.mn/health (keeps the free instance awake).
+      - key: KEEPALIVE_URL
+        sync: false
+      - key: UPLOAD_SIGNING_SECRET
+        generateValue: true
+      # No persistent disk on the free plan: custom images are stored in PostgreSQL.
+      - key: STORAGE_DRIVER
+        value: db
+      # Hourly cleanup lets Neon scale to zero between games (free plan: 100 CU-hours/month).
+      - key: SWEEP_INTERVAL_MS
+        value: '3600000'

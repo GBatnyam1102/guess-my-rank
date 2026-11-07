@@ -1,0 +1,95 @@
+# Production stack on one VM: Caddy (HTTPS) -> web (Next.js) + server (Socket.IO) -> Postgres.
+# Run from the repo root on the VM:  docker compose -f deploy/compose.yml --env-file deploy/.env up -d --build
+# deploy/.env holds DOMAIN, POSTGRES_PASSWORD, UPLOAD_SIGNING_SECRET (deploy/remote.sh creates it).
+
+name: gmr
+
+x-logging: &logging
+  driver: local
+  options:
+    max-size: 20m
+    max-file: '5'
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      POSTGRES_USER: gmr
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in deploy/.env}
+      POSTGRES_DB: guess_my_rank
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U gmr -d guess_my_rank']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Exactly one instance: rooms, timers and bots live in this process's memory (state is also saved to Postgres).
+  server:
+    build:
+      context: ..
+      target: server
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 20s
+    logging: *logging
+    environment:
+      DATABASE_URL: postgres://gmr:${POSTGRES_PASSWORD}@postgres:5432/guess_my_rank
+      CORS_ORIGINS: https://${DOMAIN:?set in deploy/.env},https://www.${DOMAIN}
+      STORAGE_DRIVER: local
+      STORAGE_DIR: /data/uploads
+      UPLOAD_SIGNING_SECRET: ${UPLOAD_SIGNING_SECRET:?set in deploy/.env}
+    volumes:
+      - uploads:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:4000/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+
+  web:
+    build:
+      context: ..
+      target: web
+      args:
+        NEXT_PUBLIC_SERVER_URL: https://api.${DOMAIN}
+    restart: unless-stopped
+    init: true
+    logging: *logging
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    logging: *logging
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+      - server
+
+volumes:
+  pgdata:
+  uploads:
+  caddy_data:
+  caddy_config:

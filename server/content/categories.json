@@ -1,0 +1,140 @@
+[
+  {
+    "id": "food",
+    "name": "Хоол",
+    "emoji": "🍕",
+    "colors": ["#fb923c", "#e11d48"],
+    "items": [
+      { "slug": "pizza", "title": "Пицца", "emoji": "🍕", "fact": "Италийн Неаполь хотоос гаралтай.", "sourceUrl": "https://en.wikipedia.org/wiki/Pizza" },
+      { "slug": "sushi", "title": "Суши", "emoji": "🍣", "fact": "Цуутай будаа, далайн бүтээгдэхүүнээр хийдэг Япон хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Sushi" },
+      { "slug": "burger", "title": "Бургер", "emoji": "🍔", "fact": "Талхны дунд махан котлет хийдэг; АНУ-аас дэлхийд дэлгэрсэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Hamburger" },
+      { "slug": "buuz", "title": "Бууз", "emoji": "🥟", "fact": "Цагаан сараар хамгийн их иддэг монгол хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Buuz" },
+      { "slug": "khuushuur", "title": "Хуушуур", "emoji": "🫓", "fact": "Наадмын үеэр хамгийн их иддэг, тосонд шарсан хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Khuushuur" },
+      { "slug": "ramen", "title": "Рамен", "emoji": "🍜", "fact": "Шөлтэй гоймон; Японд маш алдартай.", "sourceUrl": "https://en.wikipedia.org/wiki/Ramen" },
+      { "slug": "taco", "title": "Тако", "emoji": "🌮", "fact": "Эрдэнэ шишийн нимгэн талханд ороодог Мексик хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Taco" },
+      { "slug": "spaghetti", "title": "Спагетти", "emoji": "🍝", "fact": "Италийн урт нарийн гоймон, олон төрлийн соустай иддэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Spaghetti" },
+      { "slug": "salad", "title": "Салат", "emoji": "🥗", "fact": "Ногоог ихэвчлэн түүхийгээр нь хольж хийдэг хөнгөн хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Salad" },
+      { "slug": "fried-chicken", "title": "Шарсан тахиа", "emoji": "🍗", "fact": "Гурил, амтлагчаар бүрж тосонд шарсан тахианы мах.", "sourceUrl": "https://en.wikipedia.org/wiki/Fried_chicken" },
+      { "slug": "hot-dog", "title": "Хот-дог", "emoji": "🌭", "fact": "Урт талханд хиам хийсэн түргэн хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Hot_dog" },
+      { "slug": "curry", "title": "Карри", "emoji": "🍛", "fact": "Олон төрлийн амтлагчтай, Энэтхэгээс гаралтай хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Curry" },
+      { "slug": "tsuivan", "title": "Цуйван", "emoji": "🍲", "fact": "Гар гоймонг мах, ногоотой хамт жигнэж хийдэг монгол хоол.", "sourceUrl": "https://en.wikipedia.org/wiki/Tsuivan" },
+      { "slug": "steak", "title": "Стейк", "emoji": "🥩", "fact": "Зузаан зүссэн махыг хайруулын тавган эсвэл шарах тор дээр шарна.", "sourceUrl": "https://en.wikipedia.org/wiki/Steak" },
+      { "slug": "pancake", "title": "Панкейк", "emoji": "🥞", "fact": "Гурил, өндөг, сүүгээр хийж хайруулын тавган дээр шарна.", "sourceUrl": "https://en.wikipedia.org/wiki/Pancake" }
+    ]
+  },
+  {
+    "id": "animals",
+    "name": "Амьтан",
+    "emoji": "🦁",
+    "colors": ["#4ade80", "#0f766e"],
+    "items": [
+      { "slug": "lion", "title": "Арслан", "emoji": "🦁", "fact": "Сүргээрээ амьдардаг цорын ганц том муур.", "sourceUrl": "https://en.wikipedia.org/wiki/Lion" },
+      { "slug": "tiger", "title": "Бар", "emoji": "🐯", "fact": "Муурын овгийн хамгийн том төлөөлөгч.", "sourceUrl": "https://en.wikipedia.org/wiki/Tiger" },
+      { "slug": "horse", "title": "Морь", "emoji": "🐎", "fact": "Монголд хүн амаас олон адуу бий.", "sourceUrl": "https://en.wikipedia.org/wiki/Horse" },
+      { "slug": "elephant", "title": "Заан", "emoji": "🐘", "fact": "Хуурай газрын хамгийн том амьтан.", "sourceUrl": "https://en.wikipedia.org/wiki/Elephant" },
+      { "slug": "dolphin", "title": "Далайн гахай", "emoji": "🐬", "fact": "Маш ухаалаг, дуу авиагаар харилцдаг хөхтөн.", "sourceUrl": "https://en.wikipedia.org/wiki/Dolphin" },
+      { "slug": "panda", "title": "Панда", "emoji": "🐼", "fact": "Хоолныхоо ихэнхийг хулснаас авдаг.", "sourceUrl": "https://en.wikipedia.org/wiki/Giant_panda" },
+      { "slug": "penguin", "title": "Оцон шувуу", "emoji": "🐧", "fact": "Нисдэггүй ч маш сайн сэлдэг шувуу.", "sourceUrl": "https://en.wikipedia.org/wiki/Penguin" },
+      { "slug": "snow-leopard", "title": "Ирвэс", "emoji": "🐆", "fact": "Монголын өндөр уулсад амьдардаг ховор муур.", "sourceUrl": "https://en.wikipedia.org/wiki/Snow_leopard" },
+      { "slug": "dog", "title": "Нохой", "emoji": "🐕", "fact": "Хүний хамгийн анх гаршуулсан амьтан.", "sourceUrl": "https://en.wikipedia.org/wiki/Dog" },
+      { "slug": "cat", "title": "Муур", "emoji": "🐈", "fact": "Өдрийн ихэнх цагаа унтаж өнгөрөөдөг.", "sourceUrl": "https://en.wikipedia.org/wiki/Cat" },
+      { "slug": "owl", "title": "Шар шувуу", "emoji": "🦉", "fact": "Толгойгоо маш их эргүүлж чаддаг шөнийн шувуу.", "sourceUrl": "https://en.wikipedia.org/wiki/Owl" },
+      { "slug": "camel", "title": "Тэмээ", "emoji": "🐫", "fact": "Хоёр бөхт тэмээ Монголын говьд амьдардаг.", "sourceUrl": "https://en.wikipedia.org/wiki/Bactrian_camel" },
+      { "slug": "eagle", "title": "Бүргэд", "emoji": "🦅", "fact": "Баян-Өлгийн казах анчид бүргэдээр ан хийдэг уламжлалтай.", "sourceUrl": "https://en.wikipedia.org/wiki/Golden_eagle" },
+      { "slug": "giraffe", "title": "Анааш", "emoji": "🦒", "fact": "Дэлхийн хамгийн өндөр амьтан.", "sourceUrl": "https://en.wikipedia.org/wiki/Giraffe" },
+      { "slug": "octopus", "title": "Наймалж", "emoji": "🐙", "fact": "Гурван зүрхтэй.", "sourceUrl": "https://en.wikipedia.org/wiki/Octopus" }
+    ]
+  },
+  {
+    "id": "sports",
+    "name": "Спорт",
+    "emoji": "⚽",
+    "colors": ["#60a5fa", "#4338ca"],
+    "items": [
+      { "slug": "football", "title": "Хөл бөмбөг", "emoji": "⚽", "fact": "Дэлхийд хамгийн олон хүн үздэг спорт.", "sourceUrl": "https://en.wikipedia.org/wiki/Association_football" },
+      { "slug": "basketball", "title": "Сагсан бөмбөг", "emoji": "🏀", "fact": "1891 онд АНУ-д зохиогдсон.", "sourceUrl": "https://en.wikipedia.org/wiki/Basketball" },
+      { "slug": "wrestling", "title": "Бөх", "emoji": "🤼", "fact": "Монгол бөх бол эрийн гурван наадмын нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Mongolian_wrestling" },
+      { "slug": "archery", "title": "Сур харваа", "emoji": "🏹", "fact": "Эрийн гурван наадмын нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Archery" },
+      { "slug": "horse-racing", "title": "Морин уралдаан", "emoji": "🏇", "fact": "Наадамд хүүхэд унаачид хол зайд морь уралдуулдаг.", "sourceUrl": "https://en.wikipedia.org/wiki/Horse_racing" },
+      { "slug": "tennis", "title": "Теннис", "emoji": "🎾", "fact": "Уимблдон бол хамгийн эртний теннисний тэмцээн.", "sourceUrl": "https://en.wikipedia.org/wiki/Tennis" },
+      { "slug": "swimming", "title": "Усан сэлэлт", "emoji": "🏊", "fact": "Олимпод хамгийн олон медаль олгодог төрлүүдийн нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Swimming_(sport)" },
+      { "slug": "volleyball", "title": "Гар бөмбөг", "emoji": "🏐", "fact": "1895 онд АНУ-д зохиогдсон.", "sourceUrl": "https://en.wikipedia.org/wiki/Volleyball" },
+      { "slug": "table-tennis", "title": "Ширээний теннис", "emoji": "🏓", "fact": "19-р зууны сүүлээр Англид үүссэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Table_tennis" },
+      { "slug": "boxing", "title": "Бокс", "emoji": "🥊", "fact": "Монгол боксчид олимпоос медаль хүртэж байсан.", "sourceUrl": "https://en.wikipedia.org/wiki/Boxing" },
+      { "slug": "judo", "title": "Жүдо", "emoji": "🥋", "fact": "Монгол Улс олимпийн анхны алтан медалиа 2008 онд жүдогоор авсан.", "sourceUrl": "https://en.wikipedia.org/wiki/Judo" },
+      { "slug": "skiing", "title": "Цанын спорт", "emoji": "⛷️", "fact": "Өвлийн олимпийн гол төрлүүдийн нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Skiing" },
+      { "slug": "cycling", "title": "Дугуй", "emoji": "🚴", "fact": "Тур де Франс бол хамгийн алдартай дугуйн уралдаан.", "sourceUrl": "https://en.wikipedia.org/wiki/Cycling" },
+      { "slug": "chess", "title": "Шатар", "emoji": "♟️", "fact": "Олон улсын олимпийн хороо шатрыг спорт гэж хүлээн зөвшөөрдөг.", "sourceUrl": "https://en.wikipedia.org/wiki/Chess" },
+      { "slug": "baseball", "title": "Бейсбол", "emoji": "⚾", "fact": "АНУ, Япон, Өмнөд Солонгост маш алдартай.", "sourceUrl": "https://en.wikipedia.org/wiki/Baseball" }
+    ]
+  },
+  {
+    "id": "places",
+    "name": "Аялах газар",
+    "emoji": "✈️",
+    "colors": ["#22d3ee", "#1d4ed8"],
+    "items": [
+      { "slug": "paris", "title": "Парис", "emoji": "🗼", "fact": "Эйфелийн цамхаг 1889 онд баригдсан.", "sourceUrl": "https://en.wikipedia.org/wiki/Paris" },
+      { "slug": "tokyo", "title": "Токио", "emoji": "🗾", "fact": "Их Токиогийн бүс бол дэлхийн хамгийн олон хүн амтай хотжсон бүс.", "sourceUrl": "https://en.wikipedia.org/wiki/Tokyo" },
+      { "slug": "new-york", "title": "Нью-Йорк", "emoji": "🗽", "fact": "Эрх чөлөөний хөшөөг Франц бэлэглэсэн.", "sourceUrl": "https://en.wikipedia.org/wiki/New_York_City" },
+      { "slug": "khuvsgul", "title": "Хөвсгөл нуур", "emoji": "🏞️", "fact": "Монголын хамгийн гүн цэнгэг устай нуур.", "sourceUrl": "https://en.wikipedia.org/wiki/Lake_Kh%C3%B6vsg%C3%B6l" },
+      { "slug": "gobi", "title": "Говь", "emoji": "🏜️", "fact": "Ази тивийн хамгийн том цөлүүдийн нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Gobi_Desert" },
+      { "slug": "great-wall", "title": "Цагаан хэрэм", "emoji": "🧱", "fact": "Хятадын эртний хамгаалалтын хэрэм.", "sourceUrl": "https://en.wikipedia.org/wiki/Great_Wall_of_China" },
+      { "slug": "seoul", "title": "Сөүл", "emoji": "🏙️", "fact": "Өмнөд Солонгосын нийслэл.", "sourceUrl": "https://en.wikipedia.org/wiki/Seoul" },
+      { "slug": "istanbul", "title": "Истанбул", "emoji": "🕌", "fact": "Европ, Ази хоёр тивд оршдог хот.", "sourceUrl": "https://en.wikipedia.org/wiki/Istanbul" },
+      { "slug": "dubai", "title": "Дубай", "emoji": "🌆", "fact": "Дэлхийн хамгийн өндөр барилга Бурж Халифа энд бий.", "sourceUrl": "https://en.wikipedia.org/wiki/Dubai" },
+      { "slug": "bali", "title": "Бали", "emoji": "🏝️", "fact": "Далайн эргээрээ алдартай Индонезийн арал.", "sourceUrl": "https://en.wikipedia.org/wiki/Bali" },
+      { "slug": "giza", "title": "Гизагийн пирамид", "emoji": "🔺", "fact": "Эртний долоон гайхамшгаас өнөөг хүртэл үлдсэн цорын ганц нь.", "sourceUrl": "https://en.wikipedia.org/wiki/Giza_pyramid_complex" },
+      { "slug": "rome", "title": "Ром", "emoji": "🏟️", "fact": "Колизей бараг 2000 жилийн настай.", "sourceUrl": "https://en.wikipedia.org/wiki/Rome" },
+      { "slug": "terelj", "title": "Тэрэлж", "emoji": "⛰️", "fact": "Мэлхий хад, Арьяабал хийдээрээ алдартай.", "sourceUrl": "https://en.wikipedia.org/wiki/Gorkhi-Terelj_National_Park" },
+      { "slug": "maldives", "title": "Мальдив", "emoji": "🐠", "fact": "Мянга гаруй шүрэн арлаас бүрддэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Maldives" },
+      { "slug": "alps", "title": "Альпийн нуруу", "emoji": "🏔️", "fact": "Бүхэлдээ Европт оршдог хамгийн өндөр нуруу.", "sourceUrl": "https://en.wikipedia.org/wiki/Alps" }
+    ]
+  },
+  {
+    "id": "hobbies",
+    "name": "Хобби",
+    "emoji": "🎨",
+    "colors": ["#c084fc", "#db2777"],
+    "items": [
+      { "slug": "reading", "title": "Ном унших", "emoji": "📚", "fact": "Тогтмол унших нь үгийн санг баяжуулдаг.", "sourceUrl": "https://en.wikipedia.org/wiki/Reading" },
+      { "slug": "guitar", "title": "Гитар тоглох", "emoji": "🎸", "fact": "Зургаан утастай гитар хамгийн түгээмэл.", "sourceUrl": "https://en.wikipedia.org/wiki/Guitar" },
+      { "slug": "drawing", "title": "Зураг зурах", "emoji": "🎨", "fact": "Хамгийн эртний агуйн зургууд 40,000 гаруй жилийн настай.", "sourceUrl": "https://en.wikipedia.org/wiki/Drawing" },
+      { "slug": "cooking", "title": "Хоол хийх", "emoji": "🍳", "fact": "Галаар хоол болгох нь хүн төрөлхтний эртний дадал.", "sourceUrl": "https://en.wikipedia.org/wiki/Cooking" },
+      { "slug": "gaming", "title": "Видео тоглоом", "emoji": "🎮", "fact": "Анхны арилжааны видео тоглоомуудын нэг Pong 1972 онд гарсан.", "sourceUrl": "https://en.wikipedia.org/wiki/Video_game" },
+      { "slug": "photography", "title": "Гэрэл зураг", "emoji": "📷", "fact": "Хадгалагдаж үлдсэн хамгийн эртний гэрэл зургийг 1826–1827 онд авсан.", "sourceUrl": "https://en.wikipedia.org/wiki/Photography" },
+      { "slug": "hiking", "title": "Явган аялал", "emoji": "🥾", "fact": "Байгальд алхах нь бие, сэтгэлд тустай.", "sourceUrl": "https://en.wikipedia.org/wiki/Hiking" },
+      { "slug": "dancing", "title": "Бүжиг", "emoji": "💃", "fact": "Хамгийн эртний урлагийн төрлүүдийн нэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Dance" },
+      { "slug": "gardening", "title": "Цэцэрлэгжүүлэлт", "emoji": "🌱", "fact": "Ургамал тарьж арчлах тайван хобби.", "sourceUrl": "https://en.wikipedia.org/wiki/Gardening" },
+      { "slug": "fishing", "title": "Загасчлах", "emoji": "🎣", "fact": "Монголын голуудад хулд загасны овгийн хамгийн том төрөл болох тул загас бий.", "sourceUrl": "https://en.wikipedia.org/wiki/Hucho_taimen" },
+      { "slug": "karaoke", "title": "Караоке", "emoji": "🎤", "fact": "Япон үг бөгөөд «хоосон оркестр» гэсэн утгатай.", "sourceUrl": "https://en.wikipedia.org/wiki/Karaoke" },
+      { "slug": "knitting", "title": "Сүлжмэл", "emoji": "🧶", "fact": "Зүүгээр утсыг гогцоолон сүлжиж хувцас хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Knitting" },
+      { "slug": "movies", "title": "Кино үзэх", "emoji": "🎬", "fact": "Люмьер ах дүүс 1895 онд Парист анхны төлбөртэй кино үзүүлбэр хийсэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Film" },
+      { "slug": "travel", "title": "Аялах", "emoji": "🧳", "fact": "Шинэ газар, соёлтой танилцах боломж.", "sourceUrl": "https://en.wikipedia.org/wiki/Travel" },
+      { "slug": "puzzle", "title": "Пазл", "emoji": "🧩", "fact": "Анхны пазлыг 1760-аад онд газрын зургаар хийсэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Jigsaw_puzzle" }
+    ]
+  },
+  {
+    "id": "sweets",
+    "name": "Амттан ба ундаа",
+    "emoji": "🍰",
+    "colors": ["#f9a8d4", "#d97706"],
+    "items": [
+      { "slug": "ice-cream", "title": "Зайрмаг", "emoji": "🍦", "fact": "Сүү, элсэн чихрийг хөлдөөж хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Ice_cream" },
+      { "slug": "chocolate", "title": "Шоколад", "emoji": "🍫", "fact": "Какао модны үрээр хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Chocolate" },
+      { "slug": "cake", "title": "Бялуу", "emoji": "🎂", "fact": "Төрсөн өдрийн бялуун дээр лаа асаах заншил өргөн дэлгэрсэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Cake" },
+      { "slug": "suutei-tsai", "title": "Сүүтэй цай", "emoji": "🍵", "fact": "Монголчуудын өдөр бүр уудаг давстай сүүтэй цай.", "sourceUrl": "https://en.wikipedia.org/wiki/Suutei_tsai" },
+      { "slug": "coffee", "title": "Кофе", "emoji": "☕", "fact": "Кофены ургамал Этиопоос гаралтай.", "sourceUrl": "https://en.wikipedia.org/wiki/Coffee" },
+      { "slug": "bubble-tea", "title": "Бөмбөлөгт цай", "emoji": "🧋", "fact": "1980-аад онд Тайваньд үүссэн.", "sourceUrl": "https://en.wikipedia.org/wiki/Bubble_tea" },
+      { "slug": "donut", "title": "Пончик", "emoji": "🍩", "fact": "Тосонд шарсан чихэрлэг гурилан бүтээгдэхүүн.", "sourceUrl": "https://en.wikipedia.org/wiki/Doughnut" },
+      { "slug": "cookie", "title": "Жигнэмэг", "emoji": "🍪", "fact": "Шоколадтай жигнэмэг 1930-аад онд АНУ-д бий болсон.", "sourceUrl": "https://en.wikipedia.org/wiki/Chocolate_chip_cookie" },
+      { "slug": "airag", "title": "Айраг", "emoji": "🥛", "fact": "Гүүний сүүг исгэж хийдэг монгол ундаа.", "sourceUrl": "https://en.wikipedia.org/wiki/Kumis" },
+      { "slug": "lemonade", "title": "Лимонад", "emoji": "🍋", "fact": "Нимбэгний шүүс, ус, элсэн чихрээр хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Lemonade" },
+      { "slug": "watermelon", "title": "Тарвас", "emoji": "🍉", "fact": "Ойролцоогоор 90 гаруй хувь нь ус.", "sourceUrl": "https://en.wikipedia.org/wiki/Watermelon" },
+      { "slug": "candy", "title": "Чихэр", "emoji": "🍬", "fact": "Элсэн чихрийг хайлуулж хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Candy" },
+      { "slug": "aaruul", "title": "Ааруул", "emoji": "🧀", "fact": "Ээдмийг хатааж хийдэг монгол амттан.", "sourceUrl": "https://en.wikipedia.org/wiki/Aaruul" },
+      { "slug": "smoothie", "title": "Смүүти", "emoji": "🥤", "fact": "Жимсийг сүү эсвэл тарагтай холиулж хийдэг.", "sourceUrl": "https://en.wikipedia.org/wiki/Smoothie" },
+      { "slug": "honey", "title": "Зөгийн бал", "emoji": "🍯", "fact": "Битүү хадгалбал бараг муудахгүй.", "sourceUrl": "https://en.wikipedia.org/wiki/Honey" }
+    ]
+  }
+]

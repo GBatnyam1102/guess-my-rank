@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev: server + web",
+      "type": "shell",
+      "command": "pnpm dev",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "test: all",
+      "type": "shell",
+      "command": "pnpm test",
+      "problemMatcher": [],
+      "group": { "kind": "test", "isDefault": true }
+    },
+    {
+      "label": "bots: join a room",
+      "type": "shell",
+      "command": "pnpm --filter @gmr/server bots --join ${input:roomCode} --count 3",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [{ "id": "roomCode", "type": "promptString", "description": "Өрөөний код" }]
+}

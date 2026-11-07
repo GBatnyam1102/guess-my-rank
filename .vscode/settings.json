@@ -1,0 +1,17 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "eslint.useFlatConfig": true,
+  "editor.formatOnSave": false,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.next": true,
+    "**/*.tsbuildinfo": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "server/content/cards": true
+  },
+  "tailwindCSS.experimental.configFile": "web/app/globals.css"
+}

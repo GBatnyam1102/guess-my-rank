@@ -1,0 +1,29 @@
+{
+  "name": "guess-my-rank",
+  "private": true,
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c cyan,magenta \"pnpm --filter @gmr/server dev\" \"pnpm --filter @gmr/web dev\"",
+    "dev:server": "pnpm --filter @gmr/server dev",
+    "dev:web": "pnpm --filter @gmr/web dev",
+    "build": "pnpm --filter @gmr/web build",
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "db:migrate": "pnpm --filter @gmr/server db:migrate",
+    "content:import": "pnpm --filter @gmr/server content:import"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "concurrently": "10.0.6",
+    "eslint": "10.14.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.14.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}
