@@ -3,7 +3,7 @@ import { THEME_COLORS } from '@/lib/theme-init';
 
 /**
  * Makes the site installable as an app (PWA): home-screen icon, full screen, no browser bar.
- * Served at /manifest.webmanifest; the install UI is components/InstallApp.tsx.
+ * Served at /manifest.webmanifest. The install button, iPhone steps and QR code are in components/InstallApp.tsx.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
