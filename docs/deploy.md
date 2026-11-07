@@ -1,77 +1,68 @@
 # Production deploy
 
-Бүх зүйл нэг үнэгүй Oracle Cloud VM (Tokyo) дээр Docker Compose-оор ажиллана. Шийдвэрийн шалтгааныг [decisions.md](decisions.md#deploy-2026-11-07) хэсгээс харна уу.
+Бүгд үнэгүй, карт шаардахгүй: **web → Vercel**, **тоглоомын сервер → Render (Singapore)**, **Postgres → Neon (Singapore)**, **DNS → Cloudflare**. Код GitHub-ийн private repo-д байна, `main` руу push хийхэд Render, Vercel хоёулаа өөрөө дахин deploy хийнэ. Шийдвэрийн шалтгаан: [decisions.md](decisions.md#deploy-2026-11-07).
 
 ```
-Утас / хөтөч ──HTTPS──▶ Oracle VM (Ubuntu, Docker)
-                         caddy :80/:443   (Let's Encrypt гэрчилгээг өөрөө авч, сунгана)
-                          ├─ <домэйн>         ▶ web    (Next.js standalone, :3000)
-                          ├─ www.<домэйн>     ▶ <домэйн> руу redirect
-                          └─ api.<домэйн>     ▶ server (Socket.IO + upload, :4000) ▶ postgres :5432
+Утас / хөтөч ──HTTPS──▶ <домэйн>, www.<домэйн>  ▶ Vercel  (Next.js)
+             ──WSS────▶ api.<домэйн>             ▶ Render  (Socket.IO сервер, Docker, free) ──▶ Neon Postgres
+                                                     (өрөө, тоглогч, Custom зураг)
 ```
 
-| Файл | Юу хийнэ |
-| ---- | -------- |
-| `Dockerfile` | `server`, `web` гэсэн 2 image. Web-ийн `NEXT_PUBLIC_SERVER_URL` build хийх үед image-д шингэнэ |
-| `deploy/compose.yml` | postgres, server, web, caddy. Volume: `pgdata`, `uploads`, `caddy_data` |
-| `deploy/Caddyfile` | HTTPS, домэйн → service |
-| `deploy/vm-setup.sh` | Шинэ VM-д нэг удаа: Docker, 80/443 порт, жижиг VM-д swap |
-| `deploy/deploy.sh` | Локал кодыг VM руу хуулж, image build хийгээд асаана |
-| `deploy/remote.sh` | VM дээр: `~/gmr.env` нууц үгсийг (анх удаа) үүсгэх, `compose up`, health хүлээх |
+Сервер **яг 1 instance** байх ёстой: өрөө, таймер, bot санах ойд ажиллаж, Postgres-д хадгалагдана. Render-ийн free план нэг instance-тай.
 
-Сервер **яг 1 instance** байх ёстой: өрөө, таймер, bot санах ойд ажиллана (Postgres-д хадгалагдаж, restart-ын дараа сэргэнэ).
+## Тохиргооны утгууд
 
-## Нэг удаагийн бэлтгэл (таны хийх алхмууд)
+| Хаана | Нэр | Утга |
+| ----- | --- | ---- |
+| Render | `DATABASE_URL` | Neon-ий **Direct** (pooling-гүй) connection string |
+| Render | `CORS_ORIGINS` | `https://<домэйн>,https://www.<домэйн>` |
+| Render | `KEEPALIVE_URL` | `https://api.<домэйн>/health` |
+| Render | `STORAGE_DRIVER`, `SWEEP_INTERVAL_MS`, `UPLOAD_SIGNING_SECRET` | `render.yaml` өөрөө тохируулна |
+| Vercel | `NEXT_PUBLIC_SERVER_URL` | `https://api.<домэйн>` |
 
-1. **Oracle Cloud бүртгэл** — <https://signup.cloud.oracle.com>.
-   - **Country/Territory = Mongolia**. Нэр, хаяг нь картын эзэмшигчийн мэдээлэлтэй таарах ёстой, эс бөгөөс картын шалгалт "transaction failed" болно.
-   - **Home Region = Japan East (Tokyo)**. Энэ бол серверийн байршил, дараа нь өөрчлөх боломжгүй.
-   - Картаас ~$1 түр хаадаг (authorization hold). Энэ нь жинхэнэ гүйлгээ биш, банк хэдэн хоногийн дотор өөрөө чөлөөлнө.
-2. **VM үүсгэх** — Compute → Instances → Create instance:
-   - Image: **Canonical Ubuntu 24.04**
-   - Shape: **Ampere VM.Standard.A1.Flex**, 2 OCPU, 12 GB (Always Free-д нийт 4 OCPU / 24 GB багтана). "Out of capacity" гарвал өөр Availability Domain сонгох эсвэл хэдэн цагийн дараа дахин оролдоно. Хамгийн сүүлийн сонголт бол **VM.Standard.E2.1.Micro** (1 GB, удаан build).
-   - Networking: "Assign a public IPv4 address" сонгосон байна.
-   - SSH keys: **Paste public keys** → `C:\Users\Administrator\.ssh\gmr_oracle.pub`-ийн агуулга.
-3. **Порт нээх** — Networking → Virtual Cloud Networks → тухайн VCN → Subnet → Default Security List → **Add Ingress Rules**: Source CIDR `0.0.0.0/0`, IP Protocol TCP, Destination Port Range `80,443`.
-4. **Cloudflare DNS** — домэйны DNS хэсэгт гурван `A` бичлэг нэмнэ. Утга нь VM-ийн public IP, **Proxy status: DNS only (саарал үүл)**:
+## Нэг удаагийн бэлтгэл
 
-   | Type | Name | Content | Proxy |
-   | ---- | ---- | ------- | ----- |
-   | A | `@` | VM IP | DNS only |
-   | A | `www` | VM IP | DNS only |
-   | A | `api` | VM IP | DNS only |
+1. **GitHub** — <https://github.com/new>: нэр `guess-my-rank`, **Private**, README болон .gitignore-гүй хоосон repo. Дараа нь кодыг push хийнэ:
+   ```bash
+   git remote add origin https://github.com/<user>/guess-my-rank.git
+   git push -u origin main
+   ```
+2. **Neon** — <https://neon.com> → GitHub-аар нэвтэрнэ → New project: нэр `guess-my-rank`, Postgres 17, region **AWS Asia Pacific (Singapore)**. Connect товч → **Connection pooling-ийг унтраах** → connection string-ийг хуулна.
+3. **Render** — <https://render.com> → GitHub-аар нэвтэрнэ → **New → Blueprint** → `guess-my-rank` repo-г сонгоно (GitHub-д Render-д хандах эрх өгнө). `render.yaml`-ийг уншаад `DATABASE_URL`, `CORS_ORIGINS`, `KEEPALIVE_URL`-ийг асууна, дээрх хүснэгтээр бөглөнө. Deploy дууссаны дараа: service → Settings → **Custom Domains → Add** `api.<домэйн>`.
+4. **Vercel** — <https://vercel.com> → GitHub-аар нэвтэрнэ (Hobby) → **Add New → Project** → `guess-my-rank` → **Root Directory: `web`** → Environment Variables-д `NEXT_PUBLIC_SERVER_URL` нэмнэ → Deploy. Дараа нь Settings → **Domains**: `<домэйн>` болон `www.<домэйн>`-ийг нэмнэ.
+5. **Cloudflare DNS** — бүх бичлэг **DNS only (саарал үүл)**:
 
-   Саарал үүл байх шалтгаан: Caddy Let's Encrypt-ээс гэрчилгээ авахдаа шууд VM рүү холбогдох шаардлагатай.
+   | Type | Name | Content |
+   | ---- | ---- | ------- |
+   | CNAME | `api` | Render-ийн өгсөн хаяг (`gmr-server-xxxx.onrender.com`) |
+   | A | `@` | Vercel-ийн Domains хуудсанд харуулсан IP |
+   | CNAME | `www` | Vercel-ийн харуулсан хаяг |
 
-5. (Зөвлөмж) **Pay As You Go руу шилжүүлэх** — Billing → Upgrade. Always Free нөөцөөс хэтрэхгүй бол төлбөр гарахгүй. Free горимд 7 хоног бараг ачаалалгүй байсан VM-ийг Oracle буцааж авч болдог, PAYG-д тийм эрсдэл байхгүй.
+   Render, Vercel хоёулаа HTTPS гэрчилгээг өөрөө авна. Саарал үүлтэй байх шалтгаан: тэд домэйнийг шууд шалгах шаардлагатай.
 
-## Deploy хийх
+## Өдөр тутмын ажил
 
-Git Bash-аас (repo-ийн root дээр):
+- **Шинэ хувилбар гаргах:** `git push`. Render зөвхөн `server/`, `shared/`, `Dockerfile`, `pnpm-lock.yaml` өөрчлөгдсөн үед дахин build хийнэ.
+- **Лог:** Render dashboard → gmr-server → Logs. **Ачаалал:** Neon dashboard → Usage.
+- **Шалгах хаяг:** `https://api.<домэйн>/health` → `{"ok":true,"store":"postgres","storage":"db"}`.
+- Сервер дахин асахад (deploy, Render-ийн засвар) тоглоомууд DB-ээс сэргэнэ. Deploy хийх үед хуучин, шинэ instance хэдэн секунд зэрэг ажилладаг тул тоглолт явагдаж байх үед deploy хийхгүй байх нь дээр.
+
+## Үнэгүй хязгаарууд
+
+| Үйлчилгээ | Хязгаар | Манай хэрэглээ |
+| --------- | ------- | -------------- |
+| Render free | 750 цаг/сар, ~512 MB RAM, 0.1 CPU. 15 мин inbound traffic-гүй бол унтдаг. Диск байхгүй | 1 service × 24/7 ≈ 730 цаг. `KEEPALIVE_URL` 10 мин тутам `/health` дуудаж сэрүүн байлгана. Custom зураг Postgres-д хадгалагдана (`STORAGE_DRIVER=db`) |
+| Neon free | 100 CU-цаг/сар, 1 GB, 5 GB egress. 5 мин идэвхгүй бол унтдаг | Сул холболтуудыг 60 сек-д хаадаг, цэвэрлэгээ цагт нэг удаа (`SWEEP_INTERVAL_MS`). Сэрэхэд хэдэн зуун мс |
+| Vercel Hobby | Хувийн, арилжааны бус төсөлд үнэгүй | Зөвхөн web |
+
+Free серверийн CPU сул тул Custom зураг бүрийг боловсруулахад 1–2 секунд зарцуулагдаж болно.
+
+## Өөр хувилбар: өөрийн VM
+
+`Dockerfile` + `deploy/` (Caddy, Postgres, web, server-ийг нэг Docker Compose-д багтаасан) ямар ч Ubuntu VM дээр ажиллана:
 
 ```bash
-# Анх удаа: Docker суулгаж, порт нээгээд deploy хийнэ
-DEPLOY_HOST=ubuntu@<VM_IP> DOMAIN=<домэйн> deploy/deploy.sh --setup
-
-# Дараагийн удаа (код өөрчилсний дараа)
-DEPLOY_HOST=ubuntu@<VM_IP> DOMAIN=<домэйн> deploy/deploy.sh
+DEPLOY_HOST=ubuntu@<VM_IP> DOMAIN=<домэйн> deploy/deploy.sh --setup   # анх удаа, Git Bash-аас
 ```
 
-Script нь эх кодыг (`node_modules`, `.env`, `server/data`-аас бусад) VM-ийн `~/gmr` руу хуулж, image-уудыг VM дээр build хийнэ. Сервер, web хоёр healthy болтол хүлээнэ. Шалгах хаяг: `https://api.<домэйн>/health`.
-
-## VM дээрх ажил
-
-```bash
-ssh -i ~/.ssh/gmr_oracle ubuntu@<VM_IP>
-cd ~/gmr
-alias dc='docker compose -f deploy/compose.yml --env-file ~/gmr.env'
-
-dc ps                      # төлөв
-dc logs -f server          # серверийн лог (JSON мөрүүд)
-dc restart server          # сервер дахин асаах (тоглоомууд DB-ээс сэргэнэ)
-docker exec gmr-postgres-1 pg_dump -U gmr guess_my_rank > ~/backup-$(date +%F).sql   # DB нөөц
-```
-
-- Нууц үгс `~/gmr.env`-д байна (`POSTGRES_PASSWORD`, `UPLOAD_SIGNING_SECRET`). Энэ файлыг устгаж болохгүй: Postgres-ийн өгөгдөл анх үүссэн нууц үгээрээ ажилладаг.
-- Custom зургууд `uploads` volume-д хадгалагдана. Тоглоом дууссанаас 24 цагийн дараа устна.
-- Лог файл бүр 20 MB × 5 хүртэл хадгалагдаж, хуучин нь автоматаар устна.
+VM дээр нууц үгс `~/gmr.env`-д хадгалагдана. DNS-д `@`, `www`, `api` гурван A бичлэг нь VM-ийн IP руу заана.

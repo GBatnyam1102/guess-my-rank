@@ -36,12 +36,15 @@ Bot-той өрөө (2026-11-07 нэмсэн):
 
 ## Deploy (2026-11-07)
 
-Шаардлага: бүх зүйл үнэгүй, сервер 24/7 асаалттай, яг 1 instance. Төлөвлөгөөний Vercel + Fly.io + Neon + R2-оос дараах байдлаар өөрчилсөн ([заавар](deploy.md)):
+Шаардлага: бүгд үнэгүй, карт шаардахгүй, сервер 24/7, яг 1 instance. Oracle Cloud-ийн үнэгүй VM карт шаарддаг тул сонгосонгүй ([заавар](deploy.md)).
 
 | Давхарга | Төлөвлөгөөнд | Хэрэгжүүлсэн | Шалтгаан |
 | -------- | ------------ | ------------ | -------- |
-| Тоглоомын сервер | Fly.io эсвэл Railway | Oracle Cloud Always Free VM (Tokyo), Docker | Fly.io, Railway-д үнэгүй түвшин байхгүй. Oracle VM үргэлж асаалттай, Монголд ойр |
-| Frontend | Vercel | Мөн тэр VM дээр Next.js standalone | Нэг deploy команд, нэг бүртгэл. Vercel-д шилжүүлэхэд `NEXT_PUBLIC_SERVER_URL` л тохируулна |
-| Өгөгдлийн сан | Neon эсвэл Supabase | VM дээрх Postgres 17 (Docker volume) | Neon-ий үнэгүй түвшин сард 100 CU-цаг. 24/7 холболттой сервер ~180 цаг хэрэглэнэ. Өрөөний өгөгдөл түр, контент `categories.json`-оос импортлогдоно |
-| Зураг | Cloudflare R2 | `local` driver, Docker volume | R2-д карт холбох шаардлагатай, driver хараахан туршигдаагүй. Хожим `STORAGE_DRIVER=r2` болгоход хангалттай |
-| HTTPS | — | Caddy (Let's Encrypt), Cloudflare DNS "DNS only" | Гэрчилгээг автоматаар авч, сунгана |
+| Frontend | Vercel | Vercel (Hobby) | Төлөвлөгөөтэй ижил |
+| Тоглоомын сервер | Fly.io эсвэл Railway | Render free, Docker, Singapore | Fly.io, Railway-д үнэгүй түвшин байхгүй. Render 15 мин traffic-гүй бол унтдаг тул сервер `KEEPALIVE_URL`-ээр өөрийн `/health`-ийг 10 мин тутам дуудна. 750 цаг/сар нэг service-д хүрэлцэнэ |
+| Өгөгдлийн сан | Neon эсвэл Supabase | Neon free, Singapore | Render-ийн үнэгүй Postgres 30 хоногийн дараа устдаг. Neon 100 CU-цаг/сар: сул холболтыг 60 сек-д хаах, цэвэрлэгээг цагт нэг болгож (`SWEEP_INTERVAL_MS`) DB-г унтах боломжтой болгосон |
+| Зураг | Cloudflare R2 | Postgres-ийн `blobs` хүснэгт (`STORAGE_DRIVER=db`) | Render free-д диск байхгүй, R2 карт шаарддаг. Зураг 24 цагийн дараа устдаг тул 1 GB хангалттай. Сервер сүүлд үзүүлсэн зургуудыг 48 MB хүртэл санах ойд кэшлэнэ |
+| HTTPS, DNS | — | Render, Vercel өөрсдөө. Cloudflare DNS "DNS only" | — |
+
+- Neon-ий connection string-д байдаг `channel_binding=require`-ийг postgres.js серверт тохиргоо болгон илгээж, холболт унадаг. `connectionUrl()` (`server/src/repo/pg.ts`) үүнийг хасна.
+- Өөр хувилбар болгож нэг VM-д зориулсан Docker Compose stack-ийг (`deploy/`) үлдээсэн.

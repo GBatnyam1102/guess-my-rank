@@ -43,11 +43,7 @@ pnpm --filter @gmr/server bots --create --count 4 --custom   # зөвхөн bot-
 
 ## Production
 
-Oracle Cloud-ийн үнэгүй VM дээр Docker Compose-оор ажиллана (Caddy HTTPS → web + server → Postgres). Бэлтгэл болон команд: [docs/deploy.md](docs/deploy.md).
-
-```bash
-DEPLOY_HOST=ubuntu@<VM_IP> DOMAIN=<домэйн> deploy/deploy.sh   # Git Bash-аас
-```
+Бүгд үнэгүй: web → Vercel, сервер → Render (`render.yaml`), Postgres → Neon, DNS → Cloudflare. `main` руу push хийхэд өөрөө deploy хийгдэнэ. Бэлтгэлийн алхам, хязгаарууд: [docs/deploy.md](docs/deploy.md). Өөрийн VM-д зориулсан Docker Compose хувилбар `deploy/`-д байна.
 
 ## Командууд
 
