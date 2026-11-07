@@ -42,7 +42,8 @@
 
 ## Өдөр тутмын ажил
 
-- **Шинэ хувилбар гаргах:** `git push`. Render зөвхөн `server/`, `shared/`, `Dockerfile`, `pnpm-lock.yaml` өөрчлөгдсөн үед дахин build хийнэ.
+- **Шинэ хувилбар гаргах:** `git push`. Render зөвхөн `server/`, `shared/`, `Dockerfile`, `pnpm-lock.yaml` өөрчлөгдсөн үед дахин build хийнэ. Vercel `web/` болон түүний хамаарал өөрчлөгдөөгүй бол алгасна.
+- **Commit-ын зохиогч:** Vercel Hobby private repo-д зөвхөн эзэмшигчийн commit-ыг deploy хийдэг (бусдынх "Deployment Blocked"). Энэ repo-д `git config user.email 180077973+GBatnyam1102@users.noreply.github.com` (GBatnyam1102-ийн GitHub noreply хаяг) тохируулсан. `Co-Authored-By` мөргүй commit хийнэ.
 - **Лог:** Render dashboard → gmr-server → Logs. **Ачаалал:** Neon dashboard → Usage.
 - **Шалгах хаяг:** `https://api.<домэйн>/health` → `{"ok":true,"store":"postgres","storage":"db"}`.
 - Сервер дахин асахад (deploy, Render-ийн засвар) тоглоомууд DB-ээс сэргэнэ. Deploy хийх үед хуучин, шинэ instance хэдэн секунд зэрэг ажилладаг тул тоглолт явагдаж байх үед deploy хийхгүй байх нь дээр.
