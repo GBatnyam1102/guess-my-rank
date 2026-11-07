@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { InstallApp } from '@/components/InstallApp';
 import { ThemeToggle } from '@/components/theme';
 import { Screen } from '@/components/ui';
 import { stagger } from '@/lib/stagger';
@@ -43,6 +44,8 @@ export default function Home() {
           Кодоор нэгдэх
         </Link>
       </div>
+
+      <InstallApp className="animate-rise mt-2" />
 
       <ol className="mt-8 grid gap-2">
         {steps.map((s, i) => (

@@ -4,6 +4,7 @@ import { MIN_PLAYERS, type PublicPlayer } from '@gmr/shared';
 import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 import { LeaveDialog } from '../common';
+import { QrCode } from '../QrCode';
 import { spring } from '../motion';
 import { ThemeToggle } from '../theme';
 import { Avatar, BotTag, Button, Card, Pill } from '../ui';
@@ -57,6 +58,7 @@ export function Lobby() {
   const [leaving, setLeaving] = useState(false);
   const [starting, setStarting] = useState(false);
   const [adding, setAdding] = useState(false);
+  const [showQr, setShowQr] = useState(false);
   const { room } = view;
   const botRoom = room.settings.mode === 'BOTS';
   const players = view.players.filter((p) => !p.left);
@@ -123,9 +125,20 @@ export function Lobby() {
               </span>
             ))}
           </p>
-          <Button variant="secondary" className="mt-2 w-full" onClick={() => void share()}>
-            🔗 Урилгын линк хуваалцах
-          </Button>
+          <div className="mt-2 flex gap-2">
+            <Button variant="secondary" className="flex-1" onClick={() => void share()}>
+              🔗 Урилгын линк хуваалцах
+            </Button>
+            <Button variant="secondary" onClick={() => setShowQr((v) => !v)} aria-expanded={showQr} aria-label="Урилгын QR код">
+              {showQr ? 'Хаах' : '📷 QR'}
+            </Button>
+          </div>
+          {showQr && inviteUrl ? (
+            <div className="animate-rise mt-3">
+              <QrCode value={inviteUrl} label={`${room.code} өрөөнд нэгдэх QR код`} className="mx-auto w-52" />
+              <p className="mt-2 text-sm text-muted">Найзууд камераараа уншуулаад шууд нэгдэнэ.</p>
+            </div>
+          ) : null}
         </Card>
       )}
 
